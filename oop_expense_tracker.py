@@ -12,24 +12,6 @@ class ExpenseTracker:
     def add_expense(self,category,description,amount):
         expense = Expense(category,description,amount)
         self.expenses.append(expense)
-        return expense
-    
-    def view_expense(self):
-        return self.expenses
-
-    def total_expense(self):
-        total_amount=0
-        for expense in self.expenses:
-            total_amount+=expense.amount
-        return(f"Total Amount: ${total_amount}")
-    
-    def delete_expense(self,description):
-        for expense in self.expenses:
-            if expense.description == description:
-                self.expenses.remove(expense)
-                return (f"{description} deleted successfully.")
-        return(f"No such expense {description} found!")
-
 
 if __name__=="__main__":
     tracker = ExpenseTracker()
