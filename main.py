@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from oop_expense_tracker import ExpenseTracker
 from database import engine,SessionLocal
 from models import Base,ExpenseDB
+from ai_helper import suggest_category
 
 
 Base.metadata.create_all(bind=engine)
@@ -62,4 +63,8 @@ def delete_expense(description: str):
         db.close()
         return {"message": f"No expense found with description '{description}'."}
     
+@app.post("/suggest-category")
+def get_category_suggestion(description:str):
+    category = suggest_category(description)
+    return {"description":description,"suggested_category":category}
 
