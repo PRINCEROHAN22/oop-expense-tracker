@@ -50,18 +50,18 @@ def total_expense():
     db.close()
     return {"total_expense": total_amount}
 
-@app.delete("/expenses/{description}")
-def delete_expense(description: str):
+@app.delete("/expenses/{expense_id}")
+def delete_expense(expense_id: int):
     db = SessionLocal()
-    expense_to_delete = db.query(ExpenseDB).filter(ExpenseDB.description == description).first()
+    expense_to_delete = db.query(ExpenseDB).filter(ExpenseDB.id == expense_id).first()
     if expense_to_delete:
         db.delete(expense_to_delete)
         db.commit()
         db.close()
-        return {"message": f"Expense with description '{description}' deleted successfully."}
+        return {"message": f"Expense with ID '{expense_id}' deleted successfully."}
     else:
         db.close()
-        return {"message": f"No expense found with description '{description}'."}
+        return {"message": f"No expense found with ID '{expense_id}'."}
     
 @app.post("/suggest-category")
 def get_category_suggestion(description:str):
